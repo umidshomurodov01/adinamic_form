@@ -1,0 +1,66 @@
+<div v-for="type in types" :key="type" class="grid grid-cols-2 mb-4">
+      <div>
+        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Email</label
+        >
+        <input
+          
+          :type="type.text"
+          id="name"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Johndoe@gmail.com"
+          required
+        />
+      </div>
+      <button>add</button>
+
+      </div>
+
+      <template>
+  <div class="flex flex-col p-8">
+    <!-- // INPUT -->
+     <div>
+        <label for="table-search" class="sr-only">Search for meals</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+            </div>
+            <input @change="searchMeal" type="text" id="table-search-users" class=" w-full block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for meals...">
+        </div>
+        <!-- <div class="flex gap-1 justify-center">
+          <router-link :to="{name :'byLetter', params:{letter} }" v-for="letter, in letters" :key="letter">{{ letter }}</router-link>
+        </div> -->
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 p-5 space-x-4 space-y-3">
+        <div v-for="meal in meals" :key="meal.idMeal" class="bg-white shadow rounded-xl">
+          <img :src="meal.strMealThumb" :alt="meal.strMeal" class="rounded-t-xl">
+          <h3 class="p-3 font-semibold">{{ meal.strMeal }}</h3>
+          <div class="p-3 flex justify-between">
+          <a class="cursor-pointer p-3 border-red-500 text-gray-900 text-[13px] font-semibold bg-red-500  hover:bg-red-600 transform-cpu rounded-lg" :href="meal.strYoutube" target="_blank">Youtube</a>
+          <router-link class="cursor-pointer p-3 border-#2cce7d] text-white text-[13px] font-semibold bg-[#52d392] hover:bg-[#2cce7d] rounded-lg" to="/">View</router-link>
+
+          </div>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script setup>
+import { computed, ref } from 'vue'
+import store from "@/store"
+
+const keyword = ref("")
+const meals = computed(()=> store.state.searchedMeals)
+
+ async function  searchMeal() {
+  try {
+   store.dispatch("searchMeals", keyword.value)
+  } catch (err) {
+    console.log(err);
+  }  
+}
+</script>
+
+<style>
+
+</style>
